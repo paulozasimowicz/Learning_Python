@@ -28,3 +28,4 @@ if age >= 18:
 else:
   print("Discount")
 print("Proceed to payment")
+
