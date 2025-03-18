@@ -29,8 +29,9 @@ def upload_action():
 
             im = im.resize((int(img_width), int(img_height)))
             messagebox.showinfo(title='Warning', message='Image was resized to fit the screen')
-
-        img = ImageTk.PhotoImage(im)
+        # Convert to grayscale
+        gray_image = im.convert("L")
+        img = ImageTk.PhotoImage(gray_image)
         canvas.img = img
         canvas.create_image(WIDTH/2,HEIGHT/2, image=img, anchor=tk.CENTER)
    except UnidentifiedImageError:
@@ -42,7 +43,7 @@ def upload_action():
 
 if __name__ == "__main__":
 
-    WIDTH,HEIGHT = 500,500
+    WIDTH,HEIGHT = 1024,720
 
     window = tk.Tk()
     window.title("Material Analyzer")
