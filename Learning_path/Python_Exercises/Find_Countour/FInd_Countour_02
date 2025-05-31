@@ -1,0 +1,103 @@
+# Find_Countour_02
+# This code is used to find the contour of the video
+# It uses the cv2 library to read the video
+# It uses the numpy library to create the kernel
+# It uses the cv2 library to find the contours
+# It uses the cv2 library to draw the contours
+# It uses the cv2 library to display the image
+# It uses the cv2 library to save the image
+# It uses the cv2 library to close the image
+
+import tkinter as tk
+from PIL import Image, ImageTk
+import cv2
+import numpy as np
+
+# Set up the main application window
+app = tk.Tk()
+app.title("Webcam Contour Analyzer")
+app.geometry("1280x750")
+
+# Global references to the image panels
+panel_normal = None
+panel_contour = None
+
+# Open webcam
+cap = cv2.VideoCapture(0)
+
+# Default threshold value and mode
+threshold_value = tk.IntVar(value=127)
+use_adaptive = tk.BooleanVar(value=False)
+
+# Function to toggle threshold mode
+def toggle_threshold_mode():
+    use_adaptive.set(not use_adaptive.get())
+    if use_adaptive.get():
+        slider.config(state=tk.DISABLED)
+        btn_toggle.config(text="Switch to Manual Threshold")
+    else:
+        slider.config(state=tk.NORMAL)
+        btn_toggle.config(text="Switch to Adaptive Threshold")
+
+# Frame processing function
+def process_frame(frame, thresh, adaptive):
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    if adaptive:
+        binary = cv2.adaptiveThreshold(
+            gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 11, 2
+        )
+    else:
+        _, binary = cv2.threshold(gray, thresh, 255, cv2.THRESH_BINARY_INV)
+    contours, _ = cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+    output = cv2.cvtColor(gray, cv2.COLOR_GRAY2BGR)
+    for contour in contours:
+        cv2.drawContours(output, [contour], -1, (0, 255, 0), 2)
+    return output
+
+# Update frames in the GUI
+def update_frames():
+    global panel_normal, panel_contour
+    ret, frame = cap.read()
+    if not ret:
+        app.after(30, update_frames)
+        return
+    frame_resized = cv2.resize(frame, (600, 450))
+    thresh = threshold_value.get()
+    adaptive = use_adaptive.get()
+    contour_img = process_frame(frame_resized, thresh, adaptive)
+    frame_rgb = cv2.cvtColor(frame_resized, cv2.COLOR_BGR2RGB)
+    contour_rgb = cv2.cvtColor(contour_img, cv2.COLOR_BGR2RGB)
+    im_normal = ImageTk.PhotoImage(Image.fromarray(frame_rgb))
+    im_contour = ImageTk.PhotoImage(Image.fromarray(contour_rgb))
+    if panel_normal is None:
+        panel_normal = tk.Label(app, image=im_normal)
+        panel_normal.image = im_normal
+        panel_normal.pack(side="left", padx=10, pady=10)
+    else:
+        panel_normal.configure(image=im_normal)
+        panel_normal.image = im_normal
+    if panel_contour is None:
+        panel_contour = tk.Label(app, image=im_contour)
+        panel_contour.image = im_contour
+        panel_contour.pack(side="right", padx=10, pady=10)
+    else:
+        panel_contour.configure(image=im_contour)
+        panel_contour.image = im_contour
+    app.after(30, update_frames)
+
+# Slider for threshold value
+slider = tk.Scale(app, from_=0, to=255, orient=tk.HORIZONTAL, label="Threshold Value", variable=threshold_value, length=400)
+slider.pack(pady=10)
+
+# Button to toggle threshold mode
+btn_toggle = tk.Button(app, text="Switch to Adaptive Threshold", command=toggle_threshold_mode)
+btn_toggle.pack(pady=5)
+
+# Start updating frames
+def on_closing():
+    cap.release()
+    app.destroy()
+
+app.protocol("WM_DELETE_WINDOW", on_closing)
+update_frames()
+app.mainloop()
