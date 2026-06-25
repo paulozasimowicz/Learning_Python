@@ -3,7 +3,7 @@
 # python make_letter.py
 #
 # Output:
-# Motivation_STFI_Calaca.docx
+# Cover_Letter_Zellerfeld_Calaca.docx
 
 from pathlib import Path
 
@@ -18,7 +18,7 @@ from docx.oxml.ns import qn
 # Output path
 # ---------------------------------------------------------------------
 
-OUT = Path.home() / "Downloads" / "Motivation_STFI_Calaca.docx"
+OUT = Path.home() / "Downloads" / "References_Calaca.docx"
 
 
 # ---------------------------------------------------------------------
@@ -34,53 +34,31 @@ GITHUB_URL = "https://github.com/paulozasimowicz"
 PLACE_AND_DATE = "Dresden, 23 June 2026"
 
 RECIPIENT_LINES = [
-    "Saxon Textile Research Institute (STFI)",
-    "Recruitment Team",
-    "Chemnitz, Germany",
+    "Professional References",
 ]
 
-SUBJECT = "Application for Research Associate in Textile Lightweight Construction"
+SUBJECT = "References"
 
 BODY_PARAGRAPHS = [
-    "Dear STFI Recruitment Team,",
+    "Professional References",
 
     (
-        "I am writing to apply for the position of Research Associate in the field of textile lightweight construction. "
-        "I am currently completing the International MSc in Textile Engineering, with my master’s thesis already defended "
-        "and formal graduation expected in September 2026. Before this, I completed a Bachelor’s degree in Chemical "
-        "Engineering, which gave me a strong foundation in engineering thinking, materials, processes and data evaluation."
+        "Prof. Yordan Kostadinov Kyosev\n"
+        "Master’s Thesis Supervisor for the thesis: Accuracy Evaluation of 3D and 4D Body Scans\n"
+        "Technische Universität Dresden\n"
+        "Institute of Textile Machinery and High Performance Material Technology\n"
+        "Email: yordan.kyosev@tu-dresden.de"
     ),
 
     (
-        "What attracted me to this position is that STFI works close to real textile applications and industrial problems. "
-        "During my thesis at Technische Universität Dresden, supervised by Prof. Yordan Kyosev and Dipl.-Wi.-Ing. Anselm "
-        "Naake, I became especially interested in how research methods can be turned into practical tools. My work focused "
-        "on 3D and 4D body-scan analysis for textile applications, where I developed Python-based workflows for visualizing, "
-        "cleaning and evaluating scan data. This made me interested in research work where software, experiments and textile "
-        "engineering are connected."
+        "Dipl.-Wi.-Ing. Anselm Naake\n"
+        "Master’s Thesis Supervisor for the thesis: Accuracy Evaluation of 3D and 4D Body Scans\n"
+        "Technische Universität Dresden\n"
+        "Institute of Textile Machinery and High Performance Material Technology\n"
+        "Email: anselm.naake@tu-dresden.de"
     ),
-
-    (
-        "I know that my background is not yet specifically in natural-fibre reinforced plastics or aviation applications. "
-        "However, I believe I could contribute through my ability to learn technical topics, structure data, build analysis "
-        "tools and create software workflows that support research work. For example, I would be interested in helping "
-        "develop programs that can serve as a first computational baseline for evaluating or predicting lightweight textile "
-        "structures. I enjoy working on problems where the method is not fully ready yet and needs to be built, tested and "
-        "improved step by step."
-    ),
-
-    (
-        "In addition to my research experience, I have worked in industrial environments at Procter & Gamble and Coca-Cola, "
-        "where I developed communication, coordination and problem-solving skills. I am also aware that my German level does "
-        "not yet meet the requested C1 level. I am currently taking German lessons at the Goethe-Institut and am at level "
-        "A2.2, with the intention to continue improving. I would be happy to bring my textile engineering background, "
-        "programming experience and motivation to learn into STFI’s research environment."
-    ),
-
-    "Thank you for considering my application. I would be pleased to discuss my background and motivation in an interview.",
-
-    "Sincerely,\nPaulo Vitor Zasimowicz Pinto Calaça",
 ]
+
 
 # ---------------------------------------------------------------------
 # Style settings: same visual logic as the CV
@@ -88,7 +66,6 @@ BODY_PARAGRAPHS = [
 
 FONT_NAME = "Arial"
 TEXT = "222222"
-MUTED = "555555"
 ACCENT = "1F4E79"
 
 
@@ -239,7 +216,7 @@ footer = section.footer.paragraphs[0]
 footer.alignment = WD_ALIGN_PARAGRAPH.CENTER
 compact(footer, after=0)
 
-r = footer.add_run("Paulo Vitor Zasimowicz Pinto Calaça - Motivation Letter")
+r = footer.add_run("Paulo Vitor Zasimowicz Pinto Calaça - Cover Letter")
 r.font.size = Pt(7)
 r.font.color.rgb = RGBColor(120, 120, 120)
 
@@ -247,8 +224,8 @@ r.font.color.rgb = RGBColor(120, 120, 120)
 # Metadata
 core = doc.core_properties
 core.author = FULL_NAME
-core.title = "Motivation Letter - STFI"
-core.subject = "Application for Research Associate in Textile Lightweight Construction"
+core.title = "Cover Letter"
+core.subject = "Application for Slicer Developer Position"
 core.comments = ""
 
 

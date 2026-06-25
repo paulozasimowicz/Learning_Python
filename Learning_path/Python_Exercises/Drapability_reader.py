@@ -10,7 +10,7 @@ def circle_area_cm2(radius_cm):
     return np.pi * (radius_cm ** 2)
 
 # Load the image in grayscale
-img = cv2.imread("/Users/paulovitor/Desktop/WE-TEAM/Github_edit/Learning_Python/Learning_path/fisch2.jpg", cv2.IMREAD_GRAYSCALE)
+img = cv2.imread("/Users/paulovitor/Desktop/Projects/Github_edit/Learning_Python/Learning_path/Python_Exercises/Find_Countour/fisch2.jpg", cv2.IMREAD_GRAYSCALE)
 if img is None:
     print("❌ Error: Image not found.")
     exit()
