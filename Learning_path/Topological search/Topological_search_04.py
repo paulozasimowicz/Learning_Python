@@ -5,7 +5,7 @@ from scipy.spatial import cKDTree
 
 
 # path = "/Users/paulovitor/Desktop/WE-TEAM/4 Semester Germany/data_scans/Capoeira_movement/capoeira_frame0001.obj"
-path = "/Users/paulovitor/Desktop/WE-TEAM/4 Semester Germany/Data from Thesis/Thesis_Calaca_Paulo/Dynamic_Sequences/CONVENTIONAL_SQUAT_30FPS/OBJ/fps30_2_0000.obj"
+path = "/Users/paulovitor/Desktop/University of Antwerp/Testing/GAIT_0001.ply"
 
 mesh = Mesh(path)
 V = np.asarray(mesh.points, dtype=float)

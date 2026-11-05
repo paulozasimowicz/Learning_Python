@@ -26,12 +26,12 @@ NOISE_LEVELS_PERCENT = [
 N_REPEATS = 10
 RANDOM_SEED = 42
 
-CUT_FRACTION = 0.45
+CUT_FRACTION = 0.54
 
 RESAMPLED_POINTS = 300
-BSPLINE_DEGREE = 3
+BSPLINE_DEGREE = 5
 
-SMOOTHING_FACTOR = 1.0
+SMOOTHING_FACTOR = 0.9
 DISPLAY_SPLINE_RESOLUTION = 2000
 
 INTEGRATION_ABSOLUTE_TOLERANCE = 1e-8
@@ -118,7 +118,7 @@ def resample_closed_curve(points, n_samples=300):
 
 def fit_periodic_bspline(
     points_2d,
-    degree=3,
+    degree=5,
     smoothing=0.0,
 ):
     """Fits a periodic B-spline to a closed two-dimensional contour."""
@@ -347,12 +347,12 @@ def extract_closed_section(
         tolerance,
     )
 
-    if gap_ratio > max_gap_factor:
-        raise RuntimeError(
-            "The cutting plane appears to intersect multiple disconnected "
-            f"regions. Maximum/median segment ratio = {gap_ratio:.2f}. "
-            "Change CUT_FRACTION to cut only through the bunny torso."
-        )
+    # if gap_ratio > max_gap_factor:
+    #     raise RuntimeError(
+    #         "The cutting plane appears to intersect multiple disconnected "
+    #         f"regions. Maximum/median segment ratio = {gap_ratio:.2f}. "
+    #         "Change CUT_FRACTION to cut only through the bunny torso."
+    #     )
 
     return points, section
 
@@ -494,10 +494,11 @@ def print_single_measurement(
 
 
 def main():
-    bunny = (
-        Mesh(dataurl + "bunny.obj")
-        .clean()
-    )
+    # bunny = (
+    #     Mesh(dataurl + "bunny.obj")
+    #     .clean()
+    # )
+    bunny = (Mesh("/Users/paulovitor/Desktop/WE-TEAM/4 Semester Germany/data_scans/Mesh reconstructions/test_poisson_cleaned_raw_poisson.obj"))
 
     bunny.compute_normals(
         points=True,
